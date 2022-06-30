@@ -11,6 +11,13 @@
   </header>
 
   <main>
+    <section class="banner">
+      <h1>Gebruikers</h1>
+      <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1366 163.68">
+        <path class="cls-1"
+          d="M0,163.68C215.94,64.47,388.41,49.89,504.63,54.33c157.74,6.01,227.33,47.62,384.8,52.22,204.29,5.97,370.77-55.77,476.57-106.55V163.68H0Z" />
+      </svg>
+    </section>
     <section class="x-overflow">
       <% users.forEach((user) =>{ %>
       <section class="section">
@@ -18,9 +25,7 @@
 
           <article>
             <h1><%= user.name %> </h1>
-            <div style="background-image: url('<%= user.image %>');">
-            </div>
-            <img src="<%= user.image %> " alt="">
+            <img src="<%= user.pictureUser %> " alt="user picture">
           </article>
 
           <article>
@@ -43,20 +48,37 @@
           </article>
 
         </a>
+
+        <section>
+          <form action="/users" method="post">
+            <button name="favorite" type="submit" value="<%= user._id %>" class="btnHeart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+                <path
+                  d="M12 4.435c-1.989-5.399-12-4.597-12 3.568 0 4.068 3.06 9.481 12 14.997 8.94-5.516 12-10.929 12-14.997 0-8.118-10-8.999-12-3.568z" />
+              </svg>
+            </button>
+          </form>
+        </section>
+
       </section>
       <% }); %>
     </section>
     <article>
       <button class="previous">
-        <--</button> <button class="next">-->
+        ←</button> <button class="next">→
       </button>
     </article>
-  </main>
 
-  <footer>
-    <%- include('../partials/footer'); %>
-  </footer>
-  <script type="text/javascript" src="/scripts/users.js"></script>
+    <%if(activeAcc.likes){%>
+    <section class="likes">
+      <% activeAcc.likes.forEach((like) => {%>
+      <li><%= like %></li>
+      <%})%>
+    </section>
+    <%}%>
+  </main>
+    <script type="text/javascript" src="/scripts/users.js"></script>
+    <script type="text/javascript" src="/scripts/likes.js"></script>
 </body>
 
 </html>

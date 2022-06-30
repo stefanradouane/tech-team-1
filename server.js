@@ -7,31 +7,30 @@ const dotenv = require('dotenv').config();
 
 // Express
 const express = require('express');
-
 const app = express();
 
+// Port
 const port = process.env.PORT || 3000;
-
-// const path = require("path");
 
 // mongoose / mongodb
 const mongoose = require('mongoose');
-
 const connectDB = require('./config/dbConnect');
-
 connectDB();
 
+// Modules voor passport
 const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
-
-// config map checken.
+const methodOverride = require('method-override');
 
 // Routes
 const routes = require('./routes/userRoutes');
 
-// Method override
-const methodOverride = require("method-override");
+// Compress
+const {
+  startCompress
+} = require('./config/compression');
+startCompress();
 
 /** *****************************************************
  * Middleware
@@ -52,15 +51,15 @@ app.use(flash());
 app.use(
   session({
     secret: 'secret',
+    saveUninitialized: false,
     resave: false,
-    saveUnitialized: false,
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 /** *****************************************************
  * Set template engine
  ******************************************************* */
@@ -83,6 +82,5 @@ app.use((req, res) => {
  * Start webserver
  ******************************************************* */
 mongoose.connection.once('open', () => {
-  console.log('Connected to MongoDB');
-  app.listen(port, () => console.log(`Server running on port ${port}`));
+  app.listen(port);
 });

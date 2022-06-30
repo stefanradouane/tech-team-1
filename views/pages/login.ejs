@@ -10,13 +10,29 @@
         <%- include('../partials/header'); %>
     </header>
     <main>
-        <% if (messages.error) {%>
-        <p><%= messages.error%> <%}%></p>
-        <form action="/login" method="post">
-            <input type="email" name="email" id="email" placeholder="email adres" autocomplete="email">
-            <input type="password" name="password" id="password" placeholder="password" autocomplete="current-password">
-            <button type="submit">Inloggen</button>
-        </form>
+        <section class="banner">
+            <h1>Login</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1366 163.68">
+                <path class="cls-1"
+                    d="M0,163.68C215.94,64.47,388.41,49.89,504.63,54.33c157.74,6.01,227.33,47.62,384.8,52.22,204.29,5.97,370.77-55.77,476.57-106.55V163.68H0Z" />
+            </svg>
+        </section>
+        <section>
+            <% if (messages.error) {%>
+            <p><%= messages.error%> <%}%></p>
+            <form action="/login" method="post">
+                <div>
+                    <input type="email" name="email" id="email" placeholder="E-mail adress" autocomplete="email" required>
+                </div>
+                <div>
+                    <input type="password" name="password" id="password" placeholder="Wachtwoord" autocomplete="current-password" required>
+                </div>
+                <button type="submit">Inloggen</button>
+            </form>
+
+            <a href="/register">Heb je nog geen account? Meld je nu aan!</a>
+        </section>
+        
     </main>
 
 </body>
